@@ -1,10 +1,16 @@
-const { EncryptJWT, jwtDecrypt } = require('jose');
-const crypto = require('crypto');
+// Dynamic import needed for CommonJS
+const crypto = require("crypto");
+
+// Polyfill Web Crypto API for jose if needed (Node 18)
+if (!globalThis.crypto) {
+  globalThis.crypto = crypto.webcrypto;
+}
 
 // Generate a secret key for JWE if not provided (for dev)
 // In production, this must be a fixed 32-byte secret in env vars
-const SECRET_KEY = process.env.JWE_SECRET || crypto.randomBytes(32).toString('hex');
-const secret = Buffer.from(SECRET_KEY, 'utf-8');
+const SECRET_KEY =
+  process.env.JWE_SECRET || crypto.randomBytes(32).toString("hex");
+const secret = Buffer.from(SECRET_KEY, "utf-8");
 
 // Ensure secret is long enough for A256GCM (32 bytes)
 // If process.env.JWE_SECRET is used, make sure it is 32 chars or convert properly
@@ -13,41 +19,44 @@ const secret = Buffer.from(SECRET_KEY, 'utf-8');
 // Lets assume JWE_SECRET is provided as a 32+ char string or handled carefully.
 
 const getKey = () => {
-    // Basic pad or slice to 32 bytes for A256GCM
-    const key = process.env.JWT_SECRET || 'dev-secret-must-be-32-bytes-long!';
-    return new TextEncoder().encode(key.padEnd(32, '!').slice(0, 32));
+  // Basic pad or slice to 32 bytes for A256GCM
+  const key = process.env.JWT_SECRET || "dev-secret-must-be-32-bytes-long!";
+  return new TextEncoder().encode(key.padEnd(32, "!").slice(0, 32));
 };
 
 const generateToken = async (payload) => {
-    const jwt = await new EncryptJWT(payload)
-    .setProtectedHeader({ alg: 'dir', enc: 'A256GCM' })
+  const { EncryptJWT } = await import("jose");
+  const jwt = await new EncryptJWT(payload)
+    .setProtectedHeader({ alg: "dir", enc: "A256GCM" })
     .setIssuedAt()
-    .setExpirationTime('1h')
+    .setExpirationTime("1h")
     .encrypt(getKey());
-  
-    return jwt;
+
+  return jwt;
 };
 
 const verifyToken = async (token) => {
-    const { payload } = await jwtDecrypt(token, getKey());
-    return payload;
+  const { jwtDecrypt } = await import("jose");
+  const { payload } = await jwtDecrypt(token, getKey());
+  return payload;
 };
 
 const generateRefreshToken = async (payload) => {
-    // Refresh tokens can be simple signed JWTs or also JWEs. 
-    // Spec req 2.3.3 says "issues a short-lived Access Token and a longer-lived Refresh Token".
-    // We'll use JWE for consistency and security.
-    const jwt = await new EncryptJWT(payload)
-    .setProtectedHeader({ alg: 'dir', enc: 'A256GCM' })
+  // Refresh tokens can be simple signed JWTs or also JWEs.
+  // Spec req 2.3.3 says "issues a short-lived Access Token and a longer-lived Refresh Token".
+  // We'll use JWE for consistency and security.
+  const { EncryptJWT } = await import("jose");
+  const jwt = await new EncryptJWT(payload)
+    .setProtectedHeader({ alg: "dir", enc: "A256GCM" })
     .setIssuedAt()
-    .setExpirationTime('7d')
+    .setExpirationTime("7d")
     .encrypt(getKey());
 
-    return jwt;
+  return jwt;
 };
 
 module.exports = {
   generateToken,
   verifyToken,
-  generateRefreshToken
+  generateRefreshToken,
 };
