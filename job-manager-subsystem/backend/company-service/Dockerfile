@@ -13,6 +13,9 @@ WORKDIR /app/backend/company-service
 # Install dependencies
 RUN npm install
 
+# Create uploads directory
+RUN mkdir -p uploads
+
 # Copy service code
 COPY backend/company-service /app/backend/company-service
 

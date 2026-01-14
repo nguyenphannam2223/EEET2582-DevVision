@@ -66,6 +66,9 @@ services:
       - mongodb
     networks:
       - devvision-network
+    volumes:
+      - company-uploads:/app/backend/company-service/uploads
+    restart: always
 
   job-service:
     build:
@@ -103,3 +106,4 @@ networks:
 
 volumes:
   mongo-data:
+  company-uploads:
