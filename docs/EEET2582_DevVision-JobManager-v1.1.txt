@@ -33,7 +33,7 @@ Penalty ........................................................................
 
 1
 
-RMIT Classification: Protected
+RMIT Classification: Protected
 
 Introduction
 Vietnamese tradition emphasizes the proverb 'Settled and Flourished' (An Cư Lạc Nghiệp),
@@ -75,7 +75,7 @@ recognizable deliverables or providing substantial feedback:
 
 2
 
-RMIT Classification: Protected
+RMIT Classification: Protected
 
 For development tasks, each member is expected to contribute either to individual or pair programming.
 The amount of fair contribution is determined by the complexity of the supported features and average
@@ -117,7 +117,7 @@ substantial penalty applied to the individual's teamwork assessment criteria.
 
 3
 
-RMIT Classification: Protected
+RMIT Classification: Protected
 
 Milestone 1 Requirements
 Due Date: 18:00 on 28th November 2025
@@ -171,7 +171,7 @@ R02: Present Architecture Diagram of the Entire System
 You are required to separate the front-end and back-end systems in your deliverable. That is, the frontend system is not inside the back-end, and vice-versa.
 4
 
-RMIT Classification: Protected
+RMIT Classification: Protected
 
 Create an architecture diagram illustrating the entire system using either UML Component Diagram
 (Option 1) or C4 Model System, Container, and Component Diagrams (Option 2).
@@ -230,7 +230,7 @@ front-end of your system. Note that database is considered a back-end element.
 
 5
 
-RMIT Classification: Protected
+RMIT Classification: Protected
 
 Option 2: C4 Model Component Diagram
 Use C4 Model Container and Component Diagrams to depict the architecture of your entire system.
@@ -281,7 +281,7 @@ sacrificing performance
 breaches, and other threats.
 6
 
-RMIT Classification: Protected
+RMIT Classification: Protected
 
 6/ Performance: Performance relates to how quickly and efficiently a system responds to user
 requests and processes data.
@@ -313,7 +313,7 @@ contributed to the report, system design and system analysis will be penalized.
 
 7
 
-RMIT Classification: Protected
+RMIT Classification: Protected
 
 Milestone 2 Requirements
 Due Date: 18:00 on 13 January 2026
@@ -366,7 +366,7 @@ Two Premium accounts, one from Vietnam, the other from Singapore
 
 8
 
-RMIT Classification: Protected
+RMIT Classification: Protected
 
 Architecture Requirements.
 You are strongly recommended to read through requirements of ALL three Levels and the rubric to
@@ -431,7 +431,7 @@ system to invoke
 the module. Internal API services are NOT accessible to other modules
 9
 
-RMIT Classification: Protected
+RMIT Classification: Protected
 
 A.2.4
 
@@ -488,7 +488,7 @@ request body.
 
 10
 
-RMIT Classification: Protected
+RMIT Classification: Protected
 
 Ultimo
 Backend
@@ -542,7 +542,7 @@ use the Table to render the Job Post and Applications accordingly.
 
 11
 
-RMIT Classification: Protected
+RMIT Classification: Protected
 
 Job Manager Functional Requirements
 1/ Company Registration
@@ -620,7 +620,7 @@ Ultimo
 
 12
 
-RMIT Classification: Protected
+RMIT Classification: Protected
 
 configured so the company that logs in using the SSO interface cannot use a
 password for Job Manager system access.
@@ -695,7 +695,7 @@ Ultimo
 
 13
 
-RMIT Classification: Protected
+RMIT Classification: Protected
 
 Refresh Token to maintain user session without requiring frequent reauthentication.
 
@@ -743,7 +743,7 @@ Description
 
 14
 
-RMIT Classification: Protected
+RMIT Classification: Protected
 
 4/ Job Post Management
 Level
@@ -800,7 +800,7 @@ Ultimo
 
 15
 
-RMIT Classification: Protected
+RMIT Classification: Protected
 
 5/ Applicants Search
 Level
@@ -876,7 +876,7 @@ data shard.
 The system sets the default location of an applicant search to Vietnam.
 16
 
-RMIT Classification: Protected
+RMIT Classification: Protected
 
 5.3.2
 
@@ -941,7 +941,7 @@ Ultimo
 
 17
 
-RMIT Classification: Protected
+RMIT Classification: Protected
 
 premium companies. For every found match, the system must deliver an
 immediate real-time notification to the companies.
@@ -1008,7 +1008,7 @@ consume APIs for providing the software features (See API Provision and API
 Consumption Requirements)
 18
 
-RMIT Classification: Protected
+RMIT Classification: Protected
 
 The frontend, backend, database, redis cache, Kafka, API Gateway, Service
 Discovery, and other involved subsystems are Dockerized.
@@ -1062,7 +1062,7 @@ GitHub username does not contain your first name AND last name. Only publish you
 most 24 hours before submission. Missing the GitHub contribution results in 3 points penalty.
 19
 
-RMIT Classification: Protected
+RMIT Classification: Protected
 
 P3) NOT submitting the zip file of your Squad’s final deliverable on GitHub results in 3 points
 penalty
@@ -1072,4 +1072,3 @@ End of Requirement Specifications
 
 20
 
-
