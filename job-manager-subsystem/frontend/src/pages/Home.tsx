@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Home: React.FC = () => {
   return (
@@ -9,12 +10,12 @@ const Home: React.FC = () => {
           Welcome to the Job Manager Subsystem.
         </p>
         <div className="flex gap-4 justify-center pt-4">
-          <button className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors font-medium">
+          <Link to="/auth/register" className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors font-medium">
             Get Started
-          </button>
-          <button className="px-4 py-2 bg-secondary text-secondary-foreground rounded-md hover:bg-secondary/80 transition-colors font-medium">
-            Learn More
-          </button>
+          </Link>
+          <Link to="/auth/login" className="px-4 py-2 bg-secondary text-secondary-foreground rounded-md hover:bg-secondary/80 transition-colors font-medium">
+            Log In
+          </Link>
         </div>
       </div>
     </div>
