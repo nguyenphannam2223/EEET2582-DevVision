@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const path = require("path");
 require('dotenv').config();
 
 const { errorHandler } = require('@devvision/common');
@@ -10,10 +11,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Serve static files
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+
 // Routes
-// Note: In NGINX we route /api/companies to this service.
-// The internal route /internal/profiles might need special handling in Gateway or just be accessible inside mesh.
-// Here we just mount it.
 app.use('/', profileRoutes);
 
 app.use(errorHandler);

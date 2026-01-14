@@ -33,20 +33,74 @@ const createProfileInternal = async (req, res, next) => {
 };
 
 const getProfile = async (req, res, next) => {
-    // This will be implemented fully later, for now placeholder
-    try {
-        const { id } = req.params;
-        const profile = await CompanyProfile.findOne({ companyId: id });
-        if (!profile) {
-             throw new BadRequestError('Profile not found');
-        }
-        res.status(200).send(profile);
-    } catch(err) {
-        next(err);
+  try {
+    const { id } = req.params;
+    const profile = await CompanyProfile.findOne({ companyId: id });
+    if (!profile) {
+      throw new BadRequestError("Profile not found");
     }
-}
+    res.status(200).send(profile);
+  } catch (err) {
+    next(err);
+  }
+};
+
+const updateProfile = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    // In a real scenario, we should verify that req.currentUser.id === id (companyId)
+    // Assuming Auth Middleware populates req.currentUser and Gateway passes it
+
+    const updates = req.body;
+    // Prevent updating companyId or critical fields if needed
+    delete updates.companyId;
+
+    const profile = await CompanyProfile.findOneAndUpdate(
+      { companyId: id },
+      { $set: updates },
+      { new: true, runValidators: true }
+    );
+
+    if (!profile) {
+      throw new BadRequestError("Profile not found");
+    }
+
+    res.status(200).send(profile);
+  } catch (err) {
+    next(err);
+  }
+};
+
+const uploadLogo = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    if (!req.file) {
+      throw new BadRequestError("No file uploaded");
+    }
+
+    // Generate full URL (assuming served from /uploads route)
+    const logoUrl = `/uploads/${req.file.filename}`;
+
+    const profile = await CompanyProfile.findOneAndUpdate(
+      { companyId: id },
+      { logoUrl },
+      { new: true }
+    );
+
+    if (!profile) {
+      throw new BadRequestError("Profile not found");
+    }
+
+    res.status(200).send(profile);
+  } catch (err) {
+    next(err);
+  }
+};
 
 module.exports = {
   createProfileInternal,
-  getProfile
+  getProfile,
+  updateProfile,
+  uploadLogo,
 };

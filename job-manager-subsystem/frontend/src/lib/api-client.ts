@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { type AxiosInstance, type AxiosRequestConfig, type AxiosResponse } from 'axios';
 
 class ApiClient {
   private client: AxiosInstance;
@@ -11,7 +11,7 @@ class ApiClient {
       },
     });
 
-    // Add request interceptor for auth tokens if needed in future
+    // Add request interceptor for auth tokens
     this.client.interceptors.request.use(
       (config) => {
         const token = localStorage.getItem('token');
@@ -46,6 +46,17 @@ class ApiClient {
 
   public async patch<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
     const response: AxiosResponse<T> = await this.client.patch(url, data, config);
+    return response.data;
+  }
+
+  public async postMultipart<T>(url: string, formData: FormData, config?: AxiosRequestConfig): Promise<T> {
+    const response: AxiosResponse<T> = await this.client.post(url, formData, {
+      ...config,
+      headers: {
+        ...config?.headers,
+        'Content-Type': 'multipart/form-data',
+      },
+    });
     return response.data;
   }
 }
