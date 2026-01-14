@@ -5,6 +5,9 @@ import { AuthProvider } from './context/AuthContext';
 import Register from './pages/auth/Register';
 import Login from './pages/auth/Login';
 import Profile from './pages/company/Profile';
+import CreateJob from './pages/jobs/CreateJob';
+import JobList from './pages/jobs/JobList';
+import JobApplications from './pages/jobs/JobApplications';
 
 function App() {
   return (
@@ -15,6 +18,9 @@ function App() {
           <Route path="/auth/register" element={<Register />} />
           <Route path="/auth/login" element={<Login />} />
           <Route path="/company/profile" element={<Profile />} />
+          <Route path="/company/jobs/create" element={<CreateJob />} />
+          <Route path="/company/jobs" element={<JobList />} />
+          <Route path="/company/jobs/:jobId/applications" element={<JobApplications />} />
         </Routes>
       </Router>
     </AuthProvider>

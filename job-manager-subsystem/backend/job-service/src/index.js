@@ -4,12 +4,15 @@ const cors = require('cors');
 require('dotenv').config();
 
 const { errorHandler } = require('@devvision/common');
+const jobRoutes = require("./routes/job.routes");
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Routes will go here
+// Routes
+// Gateway likely proxies /api/jobs to this service
+app.use('/', jobRoutes);
 
 app.use(errorHandler);
 
