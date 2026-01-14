@@ -4,12 +4,17 @@ const cors = require('cors');
 require('dotenv').config();
 
 const { errorHandler } = require('@devvision/common');
+const profileRoutes = require("./routes/profile.routes");
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Routes will go here
+// Routes
+// Note: In NGINX we route /api/companies to this service.
+// The internal route /internal/profiles might need special handling in Gateway or just be accessible inside mesh.
+// Here we just mount it.
+app.use('/', profileRoutes);
 
 app.use(errorHandler);
 

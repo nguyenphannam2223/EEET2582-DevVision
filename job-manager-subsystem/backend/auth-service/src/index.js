@@ -4,12 +4,13 @@ const cors = require('cors');
 require('dotenv').config();
 
 const { errorHandler } = require('@devvision/common');
+const authRoutes = require("./routes/auth.routes");
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Routes will go here
+app.use("/api/auth", authRoutes);
 
 app.use(errorHandler);
 
