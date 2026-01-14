@@ -4,12 +4,14 @@ const cors = require('cors');
 require('dotenv').config();
 
 const { errorHandler } = require('@devvision/common');
+const searchRoutes = require("./routes/search.routes");
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Routes will go here
+// Routes
+app.use('/', searchRoutes);
 
 app.use(errorHandler);
 
