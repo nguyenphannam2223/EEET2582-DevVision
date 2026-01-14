@@ -55,6 +55,21 @@ This project handles the complete job management lifecycle for the DevVision pla
     ```
     The frontend will be available at `http://localhost:5173`.
 
+## Test Credentials
+
+To populate the database with test data, run the seed script:
+
+```bash
+cd backend/seed_db
+npm install
+npm run seed
+```
+
+After seeding, you can log in with any of the created user emails using:
+- **Password**: `Test@123`
+
+The seed script creates 10 test company accounts. Check the console output after running the seed to see the generated email addresses.
+
 ## API Documentation
 
 The API Gateway exposes services on `http://localhost:8080/api`:
