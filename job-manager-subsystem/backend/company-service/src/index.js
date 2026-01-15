@@ -4,7 +4,7 @@ const cors = require('cors');
 const path = require("path");
 require('dotenv').config();
 
-const { errorHandler } = require('@devvision/common');
+const { errorHandler, kafkaWrapper } = require("@devvision/common");
 const profileRoutes = require("./routes/profile.routes");
 
 const app = express();
@@ -23,8 +23,18 @@ const start = async () => {
     if (!process.env.MONGO_URI) {
         throw new Error('MONGO_URI must be defined');
     }
+    if (!process.env.KAFKA_CLIENT_ID) {
+      throw new Error("KAFKA_CLIENT_ID must be defined");
+    }
+    if (!process.env.KAFKA_BROKERS) {
+      throw new Error("KAFKA_BROKERS must be defined");
+    }
 
     try {
+        await kafkaWrapper.connect(
+          process.env.KAFKA_CLIENT_ID,
+          process.env.KAFKA_BROKERS
+        );
         await mongoose.connect(process.env.MONGO_URI);
         console.log('Connected to valid MongoDb');
     } catch (err) {
