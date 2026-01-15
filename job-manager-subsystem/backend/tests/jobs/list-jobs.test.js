@@ -45,20 +45,17 @@ async function runTest() {
     }
 
     if (res.status === 200 && Array.isArray(res.body) && res.body.length > 0) {
-      console.log(
-        "\x1b[32m%s\x1b[0m",
-        "✅ TEST SUCCESS: Jobs listed successfully"
-      );
+      console.log("\x1b[32m%s\x1b[0m", "[SUCCESS]: Jobs listed successfully");
       process.exit(0);
     } else {
       console.log(
         "\x1b[31m%s\x1b[0m",
-        "❌ TEST FAIL: Unexpected response or empty list"
+        "[FAIL]: Unexpected response or empty list"
       );
       process.exit(1);
     }
   } catch (error) {
-    console.error("\x1b[31m%s\x1b[0m", "❌ TEST FAIL: Error during execution");
+    console.error("\x1b[31m%s\x1b[0m", "[FAIL]: Error during execution");
     console.error(error);
     process.exit(1);
   }

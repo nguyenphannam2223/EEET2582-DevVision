@@ -22,15 +22,15 @@ async function runTest() {
     if (res.status === 201 && res.body.user.email === testUser.email) {
       console.log(
         "\x1b[32m%s\x1b[0m",
-        "✅ TEST SUCCESS: User registered successfully"
+        "[SUCCESS]: User registered successfully"
       );
       process.exit(0);
     } else {
-      console.log("\x1b[31m%s\x1b[0m", "❌ TEST FAIL: Unexpected response");
+      console.log("\x1b[31m%s\x1b[0m", "[FAIL]: Unexpected response");
       process.exit(1);
     }
   } catch (error) {
-    console.error("\x1b[31m%s\x1b[0m", "❌ TEST FAIL: Error during request");
+    console.error("\x1b[31m%s\x1b[0m", "[FAIL]: Error during request");
     console.error(error);
     process.exit(1);
   }

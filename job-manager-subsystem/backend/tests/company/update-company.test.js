@@ -35,20 +35,17 @@ async function runTest() {
     console.log("Response Body:", JSON.stringify(res.body, null, 2));
 
     if (res.status === 200 && res.body.name === updateData.name) {
-      console.log(
-        "\x1b[32m%s\x1b[0m",
-        "✅ TEST SUCCESS: Profile updated correctly"
-      );
+      console.log("\x1b[32m%s\x1b[0m", "[SUCCESS]: Profile updated correctly");
       process.exit(0);
     } else {
       console.log(
         "\x1b[31m%s\x1b[0m",
-        "❌ TEST FAIL: Name mismatch or update failed"
+        "[FAIL]: Name mismatch or update failed"
       );
       process.exit(1);
     }
   } catch (error) {
-    console.error("\x1b[31m%s\x1b[0m", "❌ TEST FAIL: Error during execution");
+    console.error("\x1b[31m%s\x1b[0m", "[FAIL]: Error during execution");
     console.error(error);
     process.exit(1);
   }

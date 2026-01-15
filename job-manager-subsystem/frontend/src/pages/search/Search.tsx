@@ -117,7 +117,7 @@ export default function Search() {
                                 className="flex-1 text-xs"
                                 onClick={() => toggleFavorite(applicant._id)}
                             >
-                                ❤️ Favorite
+                                Favorite
                             </Button>
                              <Button 
                                 variant="ghost" 
@@ -125,7 +125,7 @@ export default function Search() {
                                 className="flex-1 text-xs text-yellow-600 hover:text-yellow-700"
                                 onClick={() => toggleWarning(applicant._id)}
                             >
-                                ⚠️ Warn
+                                Warn
                             </Button>
                             <Button variant="outline" size="sm" className="flex-1 text-xs">
                                 View Profile

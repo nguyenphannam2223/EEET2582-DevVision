@@ -14,14 +14,10 @@ async function runTest() {
       "Results Count:",
       Array.isArray(res.body) ? res.body.length : "NOT ARRAY"
     );
-
     if (res.status === 200 && Array.isArray(res.body)) {
-      console.log(
-        "\x1b[32m%s\x1b[0m",
-        "✅ TEST SUCCESS: Search performed correctly"
-      );
+      console.log("\x1b[32m%s\x1b[0m", "[SUCCESS]: Search performed correctly");
     } else {
-      console.log("\x1b[31m%s\x1b[0m", "❌ TEST FAIL: Search failed");
+      console.log("\x1b[31m%s\x1b[0m", "[FAIL]: Search failed");
       process.exit(1);
     }
 
@@ -34,18 +30,19 @@ async function runTest() {
     if (failRes.status === 200 && failRes.body.length === 0) {
       console.log(
         "\x1b[32m%s\x1b[0m",
-        "✅ TEST SUCCESS: Negative search returned empty"
+        "[SUCCESS]: Negative search returned empty"
       );
       process.exit(0);
     } else {
       console.log(
         "\x1b[31m%s\x1b[0m",
-        "❌ TEST FAIL: Should have returned empty array"
+        "[FAIL]: Should have returned empty array"
       );
       process.exit(1);
     }
+
   } catch (error) {
-    console.error("\x1b[31m%s\x1b[0m", "❌ TEST FAIL: Error during execution");
+    console.error("\x1b[31m%s\x1b[0m", "[FAIL]: Error during execution");
     console.error(error);
     process.exit(1);
   }

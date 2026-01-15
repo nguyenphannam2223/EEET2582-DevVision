@@ -37,20 +37,17 @@ async function runTest() {
     console.log("Response Body:", JSON.stringify(res.body, null, 2));
 
     if (res.status === 201 && res.body.title === jobData.title) {
-      console.log(
-        "\x1b[32m%s\x1b[0m",
-        "✅ TEST SUCCESS: Job created successfully"
-      );
+      console.log("\x1b[32m%s\x1b[0m", "[SUCCESS]: Job created successfully");
       process.exit(0);
     } else {
       console.log(
         "\x1b[31m%s\x1b[0m",
-        "❌ TEST FAIL: Title mismatch or creation failed"
+        "[FAIL]: Title mismatch or creation failed"
       );
       process.exit(1);
     }
   } catch (error) {
-    console.error("\x1b[31m%s\x1b[0m", "❌ TEST FAIL: Error during execution");
+    console.error("\x1b[31m%s\x1b[0m", "[FAIL]: Error during execution");
     console.error(error);
     process.exit(1);
   }

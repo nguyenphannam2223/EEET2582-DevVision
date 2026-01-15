@@ -33,18 +33,18 @@ async function runTest() {
     ) {
       console.log(
         "\x1b[32m%s\x1b[0m",
-        "✅ TEST SUCCESS: Profile retrieved correctly"
+        "[SUCCESS]: Profile retrieved correctly"
       );
       process.exit(0);
     } else {
       console.log(
         "\x1b[31m%s\x1b[0m",
-        "❌ TEST FAIL: Profile mismatch or fetch failed"
+        "[FAIL]: Profile mismatch or fetch failed"
       );
       process.exit(1);
     }
   } catch (error) {
-    console.error("\x1b[31m%s\x1b[0m", "❌ TEST FAIL: Error during execution");
+    console.error("\x1b[31m%s\x1b[0m", "[FAIL]: Error during execution");
     console.error(error);
     process.exit(1);
   }
