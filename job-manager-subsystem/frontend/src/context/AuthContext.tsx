@@ -25,10 +25,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (token && storedUser) {
       try {
         const parsedUser = JSON.parse(storedUser);
-        if (parsedUser && parsedUser._id && !parsedUser.id) {
-          parsedUser.id = parsedUser._id;
+        if (parsedUser && parsedUser.email) {
+          if (parsedUser._id && !parsedUser.id) {
+            parsedUser.id = parsedUser._id;
+          }
+          setUser(parsedUser);
+        } else {
+          logout();
         }
-        setUser(parsedUser);
       } catch (e) {
         console.error('Failed to parse stored user', e);
         logout();
@@ -74,7 +78,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     localStorage.removeItem('refreshToken');
     localStorage.removeItem('user');
     setUser(null);
-    window.location.href = '/auth/login';
+    if (!window.location.pathname.startsWith('/auth/')) {
+      window.location.href = '/auth/login';
+    }
   };
 
   return (

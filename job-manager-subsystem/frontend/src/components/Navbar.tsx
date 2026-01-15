@@ -67,7 +67,7 @@ const Navbar: React.FC = () => {
           {isAuthenticated ? (
             <div className="flex items-center gap-4">
               <span className="text-sm text-muted-foreground hidden lg:inline-block">
-                Welcome, <span className="font-semibold text-foreground">{user?.email.split('@')[0]}</span>
+                Welcome, <span className="font-semibold text-foreground">{user?.email?.split('@')[0] || 'User'}</span>
               </span>
               <Button variant="ghost" size="sm" onClick={logout} className="gap-2">
                 <LogOut className="w-4 h-4" />
