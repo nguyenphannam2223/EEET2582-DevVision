@@ -8,9 +8,13 @@ const errorHandler = require('./middlewares/error-handler');
 // Database
 const BaseRepository = require('./database/base-repository');
 
+// Messaging
+const kafkaWrapper = require('./messaging/kafka-wrapper');
+
 module.exports = {
   CustomError,
   BadRequestError,
   errorHandler,
-  BaseRepository
+  BaseRepository,
+  kafkaWrapper,
 };
