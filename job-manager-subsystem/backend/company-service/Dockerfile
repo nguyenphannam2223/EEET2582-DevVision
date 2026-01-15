@@ -2,21 +2,18 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-# Copy common module
+# Copy common module and install its dependencies
 COPY backend/common /app/backend/common
-
-# Copy service package.json
-COPY backend/company-service/package*.json /app/backend/company-service/
-
-WORKDIR /app/backend/company-service
-
-# Install dependencies
+WORKDIR /app/backend/common
 RUN npm install
 
-# Create uploads directory
+# Return to root and copy service
+WORKDIR /app
+COPY backend/company-service/package*.json /app/backend/company-service/
+WORKDIR /app/backend/company-service
+RUN npm install
 RUN mkdir -p uploads
 
-# Copy service code
 COPY backend/company-service /app/backend/company-service
 
 EXPOSE 3000
