@@ -1,9 +1,4 @@
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
-import { useNavigate, Link } from 'react-router-dom';
-import { useAuth } from '@/context/AuthContext';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -15,35 +10,16 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import type { UseFormReturn } from 'react-hook-form';
+import type { LoginFormValues } from './schema';
 
-const formSchema = z.object({
-  email: z.string().email({ message: "Invalid email address" }),
-  password: z.string().min(1, { message: "Password is required" }),
-});
+interface TemplateProps {
+  form: UseFormReturn<LoginFormValues>;
+  onSubmit: (values: LoginFormValues) => Promise<void>;
+  error: string | null;
+}
 
-export default function Login() {
-  const { login } = useAuth();
-  const navigate = useNavigate();
-  const [error, setError] = useState<string | null>(null);
-
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-  });
-
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    try {
-      setError(null);
-      await login(values);
-      navigate('/');
-    } catch (err: any) {
-        setError(err.response?.data?.errors?.[0]?.message || "Invalid credentials. Please try again.");
-    }
-  }
-
+export function Template({ form, onSubmit, error }: TemplateProps) {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-50 dark:bg-gray-900 p-4">
       <Card className="w-full max-w-md">
