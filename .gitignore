@@ -140,3 +140,12 @@ dist
 
 # Office temp files
 ~$*.xlsx
+
+# LaTeX generated files
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc
