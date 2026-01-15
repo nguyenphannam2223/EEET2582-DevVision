@@ -24,7 +24,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     
     if (token && storedUser) {
       try {
-        setUser(JSON.parse(storedUser));
+        const parsedUser = JSON.parse(storedUser);
+        if (parsedUser && parsedUser._id && !parsedUser.id) {
+          parsedUser.id = parsedUser._id;
+        }
+        setUser(parsedUser);
       } catch (e) {
         console.error('Failed to parse stored user', e);
         logout();
@@ -53,11 +57,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const handleAuthSuccess = (response: AuthResponse) => {
     const { accessToken, refreshToken, user } = response;
+    // Map _id to id for consistency if backend hasn't emitted it yet
+    const normalizedUser = { ...user };
+    if (normalizedUser._id && !normalizedUser.id) {
+      normalizedUser.id = normalizedUser._id;
+    }
+
     localStorage.setItem('token', accessToken);
     localStorage.setItem('refreshToken', refreshToken);
-    localStorage.setItem('user', JSON.stringify(user));
-    setUser(user);
-    // Redirect or navigate can be handled by the component consuming this
+    localStorage.setItem('user', JSON.stringify(normalizedUser));
+    setUser(normalizedUser);
   };
 
   const logout = () => {

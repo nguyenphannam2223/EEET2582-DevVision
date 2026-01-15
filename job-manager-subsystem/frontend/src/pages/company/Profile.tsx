@@ -26,8 +26,7 @@ interface CompanyProfile {
     country: string;
     city?: string;
     address?: string;
-    phoneNumber?: string;
-    logoUrl?: string;
+  phoneNumber?: string;
 }
 
 const formSchema = z.object({
@@ -42,8 +41,6 @@ export default function Profile() {
   const { user } = useAuth();
   const [profile, setProfile] = useState<CompanyProfile | null>(null);
   const [isEditing, setIsEditing] = useState(false);
-  const [uploading, setUploading] = useState(false);
-  const [logoFile, setLogoFile] = useState<File | null>(null);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -63,10 +60,14 @@ export default function Profile() {
   }, [user]);
 
   const loadProfile = async () => {
+    const companyId = user?.id || user?._id;
+    if (!companyId) {
+      console.error("No company ID available for profile fetch");
+      return;
+    }
+
     try {
-      // Create a proxy endpoint or call company service directly via gateway
-      // Since user.id matches companyId
-      const data = await api.get<CompanyProfile>(`/companies/${user?.id}`);
+      const data = await api.get<CompanyProfile>(`/companies/${companyId}`);
       setProfile(data);
       form.reset({
           name: data.name,
@@ -81,8 +82,11 @@ export default function Profile() {
   };
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    const companyId = user?.id || user?._id;
+    if (!companyId) return;
+
       try {
-          const updatedProfile = await api.put<CompanyProfile>(`/companies/${user?.id}`, values);
+        const updatedProfile = await api.put<CompanyProfile>(`/companies/${companyId}`, values);
           setProfile(updatedProfile);
           setIsEditing(false);
       } catch (err) {
@@ -90,62 +94,17 @@ export default function Profile() {
       }
   }
 
-  const handleLogoUpload = async () => {
-      if (!logoFile) return;
-      try {
-          setUploading(true);
-          const formData = new FormData();
-          formData.append('logo', logoFile);
-          
-          const updatedProfile = await api.postMultipart<CompanyProfile>(`/companies/${user?.id}/logo`, formData);
-          setProfile(updatedProfile);
-          setLogoFile(null);
-          setUploading(false);
-      } catch (err) {
-          console.error("Failed to upload logo", err);
-          setUploading(false);
-      }
-  }
 
-  if (!profile) return <div>Loading...</div>;
+  if (!profile) return <div className="flex items-center justify-center min-h-[400px]">Loading profile...</div>;
 
   return (
-    <div className="container mx-auto p-6 space-y-6">
+    <div className="container mx-auto p-6 max-w-4xl space-y-6">
         <h1 className="text-3xl font-bold">Company Profile</h1>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Logo Card */}
-            <Card className="md:col-span-1">
-                <CardHeader>
-                    <CardTitle>Logo</CardTitle>
-                </CardHeader>
-                <CardContent className="flex flex-col items-center space-y-4">
-                    <div className="w-32 h-32 rounded-full border-2 border-gray-200 overflow-hidden flex items-center justify-center bg-gray-50">
-                        {profile.logoUrl ? (
-                            <img src={`http://localhost:3000${profile.logoUrl}`} alt="Company Logo" className="w-full h-full object-cover" />
-                        ) : (
-                            <span className="text-gray-400">No Logo</span>
-                        )}
-                    </div>
-                    <div className="w-full space-y-2">
-                        <Input 
-                            type="file" 
-                            accept="image/*" 
-                            onChange={(e) => setLogoFile(e.target.files?.[0] || null)} 
-                        />
-                        <Button 
-                            className="w-full" 
-                            disabled={!logoFile || uploading}
-                            onClick={handleLogoUpload}
-                        >
-                            {uploading ? 'Uploading...' : 'Update Logo'}
-                        </Button>
-                    </div>
-                </CardContent>
-            </Card>
+      <div className="grid grid-cols-1 gap-6">
 
             {/* Details Card */}
-            <Card className="md:col-span-2">
+        <Card className="md:col-span-1">
                 <CardHeader className="flex flex-row items-center justify-between">
                     <CardTitle>Company Details</CardTitle>
                     {!isEditing && (

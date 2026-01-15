@@ -20,8 +20,9 @@ export default function JobList() {
   const [jobs, setJobs] = useState<Job[]>([]);
 
   useEffect(() => {
-    if (user?.id) {
-       api.get<Job[]>(`/jobs/jobs/company/${user.id}`)
+      const companyId = user?.id || user?._id;
+      if (companyId) {
+          api.get<Job[]>(`/jobs/jobs/company/${companyId}`)
           .then(setJobs)
           .catch(console.error);
     }

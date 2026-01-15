@@ -53,11 +53,14 @@ export default function CreateJob() {
   }
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    const companyId = user?.id || user?._id;
+    if (!companyId) return;
+
     try {
       await api.post('/jobs/jobs', {
           ...values,
           skills,
-          companyId: user?.id
+        companyId: companyId
       });
       navigate('/company/jobs');
     } catch (err) {
