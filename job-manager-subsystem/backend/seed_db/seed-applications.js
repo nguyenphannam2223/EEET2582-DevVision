@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 const { faker } = require('@faker-js/faker');
 
+// Clear any cached models to prevent cross-database contamination
+if (mongoose.models.Application) {
+  delete mongoose.models.Application;
+}
+
 const applicationSchema = new mongoose.Schema({
   jobId: {
     type: mongoose.Schema.Types.ObjectId,

@@ -2,6 +2,11 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const { faker } = require('@faker-js/faker');
 
+// Clear any cached models to prevent cross-database contamination
+if (mongoose.models.User) {
+  delete mongoose.models.User;
+}
+
 const userSchema = new mongoose.Schema({
   email: {
     type: String,

@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 const { faker } = require('@faker-js/faker');
 
+// Clear any cached models to prevent cross-database contamination
+if (mongoose.models.Job) {
+  delete mongoose.models.Job;
+}
+
 const jobSchema = new mongoose.Schema({
   companyId: {
     type: String,

@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 const { faker } = require('@faker-js/faker');
 
+// Clear any cached models to prevent cross-database contamination
+if (mongoose.models.Applicant) {
+  delete mongoose.models.Applicant;
+}
+
 const applicantSchema = new mongoose.Schema({
   name: {
     type: String,
