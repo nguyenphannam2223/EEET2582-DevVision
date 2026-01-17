@@ -7,6 +7,7 @@ import { useAuth } from '@/context/AuthContext';
 import { api } from '@/lib/api-client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Form,
@@ -133,7 +134,7 @@ export default function CreateJob() {
 
               {/* Skills */}
               <div className="space-y-2">
-                  <FormLabel>Skills</FormLabel>
+                <Label>Skills</Label>
                   <div className="flex gap-2">
                       <Input 
                         value={skillInput} 
